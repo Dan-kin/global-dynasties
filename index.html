@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="zh-Hans">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Global Dynasties</title>
+    <link rel="stylesheet" href="styles.css?v=20260223q" />
+    <script src="app.js?v=20260223q" defer></script>
+  </head>
+  <body>
+    <div class="bg-orb orb-a" aria-hidden="true"></div>
+    <div class="bg-orb orb-b" aria-hidden="true"></div>
+
+    <header class="top-nav">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <div>
+          <p class="brand-title" data-i18n="app.title"></p>
+          <p class="brand-sub" data-i18n="app.subtitle"></p>
+        </div>
+      </div>
+
+      <div class="top-actions">
+        <div class="lang-switch" role="group" aria-label="language switch">
+          <button type="button" data-lang="zh">中</button>
+          <button type="button" data-lang="en">EN</button>
+          <button type="button" data-lang="fr">FR</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="layout" id="layoutRoot">
+      <aside id="controlPanel" class="control-panel" aria-label="controls panel">
+        <button id="panelToggle" class="panel-toggle" type="button">
+          <span class="panel-toggle-icon" aria-hidden="true">◧</span>
+          <span id="panelToggleLabel" class="panel-toggle-label"></span>
+        </button>
+
+        <div class="panel-content">
+          <section class="panel-group">
+            <h2 data-i18n="panel.title"></h2>
+            <p class="panel-hint" data-i18n="panel.hint"></p>
+          </section>
+
+          <section class="panel-group">
+            <label class="panel-label" for="searchInput" data-i18n="nav.searchLabel"></label>
+            <input id="searchInput" type="search" data-i18n-placeholder="nav.searchPlaceholder" />
+          </section>
+
+          <section class="panel-group">
+            <label class="panel-label" for="yearInput" data-i18n="panel.yearFocus"></label>
+            <div class="year-input-wrap">
+              <input id="yearInput" type="number" step="1" min="-20000" max="3000" data-i18n-placeholder="nav.yearJumpPlaceholder" />
+              <button id="jumpYearBtn" type="button" class="ghost" data-i18n="nav.jump"></button>
+            </div>
+            <input id="yearSlider" type="range" min="-10000" max="2100" step="10" />
+            <div class="year-tools">
+              <button id="prevYearBtn" type="button" class="ghost" data-i18n="panel.prev"></button>
+              <button id="nextYearBtn" type="button" class="ghost" data-i18n="panel.next"></button>
+            </div>
+          </section>
+
+          <section class="panel-group">
+            <label class="panel-label" for="regionFilter" data-i18n="filter.region"></label>
+            <select id="regionFilter"></select>
+          </section>
+
+          <section class="panel-group">
+            <label class="panel-label" for="dynastyFilter" data-i18n="filter.dynasty"></label>
+            <select id="dynastyFilter"></select>
+          </section>
+
+          <section class="panel-group">
+            <div class="panel-row">
+              <span class="panel-label" data-i18n="panel.columns"></span>
+              <button id="selectAllCountries" class="tiny-btn" type="button" data-i18n="panel.selectAll"></button>
+            </div>
+            <div id="countryChipWrap" class="country-chip-wrap"></div>
+          </section>
+
+          <section class="panel-group">
+            <button id="resetFilters" type="button" class="ghost full" data-i18n="filter.reset"></button>
+          </section>
+
+          <section class="panel-group">
+            <details class="glossary-box">
+              <summary data-i18n="glossary.title"></summary>
+              <p class="glossary-intro" data-i18n="glossary.intro"></p>
+              <ul class="glossary-list">
+                <li>
+                  <p class="glossary-term" data-i18n="glossary.focusYearTerm"></p>
+                  <p class="glossary-desc" data-i18n="glossary.focusYearDesc"></p>
+                </li>
+                <li>
+                  <p class="glossary-term" data-i18n="glossary.overlapTerm"></p>
+                  <p class="glossary-desc" data-i18n="glossary.overlapDesc"></p>
+                </li>
+                <li>
+                  <p class="glossary-term" data-i18n="glossary.evidenceTerm"></p>
+                  <p class="glossary-desc" data-i18n="glossary.evidenceDesc"></p>
+                </li>
+                <li>
+                  <p class="glossary-term" data-i18n="glossary.concurrentTerm"></p>
+                  <p class="glossary-desc" data-i18n="glossary.concurrentDesc"></p>
+                </li>
+              </ul>
+            </details>
+          </section>
+        </div>
+      </aside>
+
+      <section class="chart-panel" id="timelineSection">
+        <div class="chart-intro">
+          <p class="chart-kicker" data-i18n="chart.kicker"></p>
+          <h1 data-i18n="chart.title"></h1>
+          <p class="chart-desc" data-i18n="chart.desc"></p>
+          <p class="chart-action-hint" data-i18n="chart.columnHint"></p>
+          <div class="mobile-country-nav" id="mobileCountryNav">
+            <button id="mobilePrevCountry" type="button" class="ghost mobile-nav-btn" aria-label="previous country">◀</button>
+            <select id="mobileCountrySelect" aria-label="country quick selector"></select>
+            <button id="mobileNextCountry" type="button" class="ghost mobile-nav-btn" aria-label="next country">▶</button>
+          </div>
+          <p class="mobile-swipe-hint" data-i18n="chart.mobileHint"></p>
+        </div>
+
+        <div id="countryHeaderWrap" class="country-header-wrap">
+          <div class="country-header-spacer" aria-hidden="true"></div>
+          <div id="countryHeaderRail" class="country-header-rail">
+            <div id="countryHeaderTrack" class="country-header-track">
+              <div id="countryHeader" class="country-header"></div>
+            </div>
+          </div>
+        </div>
+
+        <div id="timelineViewport" class="timeline-viewport" aria-label="timeline viewport">
+          <div id="timelineCanvas" class="timeline-canvas">
+            <div id="timelineFeed" class="chart-stream"></div>
+          </div>
+        </div>
+
+        <div id="loadSentinel" class="load-sentinel" aria-live="polite">
+          <span class="spinner" aria-hidden="true"></span>
+          <span data-i18n="timeline.loading"></span>
+        </div>
+        <p id="timelineEnd" class="timeline-end hidden" data-i18n="timeline.end"></p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p class="footer-disclaimer" data-i18n="footer.disclaimer"></p>
+      <nav class="footer-links" aria-label="legal links">
+        <a href="attribution.html" data-i18n="footer.attribution"></a>
+        <a href="sources.html" data-i18n="footer.sources"></a>
+        <a href="privacy.html" data-i18n="footer.privacy"></a>
+        <a href="terms.html" data-i18n="footer.terms"></a>
+      </nav>
+      <p class="footer-copy" data-i18n="footer.copyright"></p>
+    </footer>
+
+    <aside id="detailDrawer" class="detail-drawer" aria-hidden="true">
+      <button id="closeDrawer" class="drawer-close" type="button" aria-label="close panel">✕</button>
+      <div class="drawer-content">
+        <p id="detailRegion" class="drawer-region"></p>
+        <h2 id="detailTitle"></h2>
+        <p id="detailCountry" class="drawer-meta"></p>
+        <p id="detailRange" class="drawer-meta"></p>
+        <p id="detailFocusYear" class="drawer-meta"></p>
+        <p class="term-tip" data-i18n="detail.focusYearHelp"></p>
+        <p id="detailConfidence" class="drawer-meta"></p>
+        <p class="term-tip" data-i18n="detail.evidenceHelp"></p>
+        <p id="detailNote" class="drawer-note"></p>
+
+        <h3 data-i18n="detail.concurrent"></h3>
+        <p class="term-tip compact" data-i18n="detail.overlapHelp"></p>
+        <ul id="detailConcurrent" class="drawer-list"></ul>
+
+        <h3 data-i18n="detail.sources"></h3>
+        <ul id="detailSources" class="drawer-list"></ul>
+
+        <p class="source-note" data-i18n="detail.sourceHint"></p>
+      </div>
+    </aside>
+
+    <div id="drawerMask" class="drawer-mask hidden" aria-hidden="true"></div>
+    <div id="hoverTooltip" class="hover-tooltip hidden" aria-hidden="true"></div>
+    <div id="panelToast" class="panel-toast hidden" aria-live="polite"></div>
+  </body>
+</html>
