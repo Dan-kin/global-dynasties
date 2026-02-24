@@ -12,6 +12,14 @@
   --glow: rgba(30, 94, 255, 0.25);
   --shadow-lg: 0 20px 55px rgba(16, 26, 45, 0.13);
   --shadow-md: 0 10px 30px rgba(16, 26, 45, 0.09);
+  --promo-card-bg: #fff7ed;
+  --promo-card-bg-hover: #ffedd5;
+  --promo-card-border: #fed7aa;
+  --promo-card-title: #1f2937;
+  --promo-card-subtitle: #6b7280;
+  --promo-card-focus: #fb923c;
+  --promo-badge-bg: #ffe4c7;
+  --promo-badge-text: #9a3412;
   --top-h: 74px;
   --panel-w: 332px;
   --era-label-w: 130px;
@@ -657,24 +665,30 @@ button:active {
 }
 
 .sirore-entry-card {
+  border-color: var(--promo-card-border);
+  background: var(--promo-card-bg);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.6),
+    0 2px 6px rgba(154, 52, 18, 0.05);
   transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease;
 }
 
 .sirore-entry-card:hover {
+  background: var(--promo-card-bg-hover);
   transform: translateY(-1px);
-  border-color: #bccce8;
+  border-color: #fdba74;
   box-shadow:
     inset 0 0 0 1px rgba(255, 255, 255, 0.72),
-    0 8px 16px rgba(20, 43, 86, 0.08);
+    0 8px 16px rgba(154, 52, 18, 0.1);
 }
 
 .sirore-entry-card:focus-visible {
-  outline: 2px solid #4f79c4;
+  outline: 2px solid var(--promo-card-focus);
   outline-offset: 2px;
-  border-color: #93b1e4;
+  border-color: var(--promo-card-focus);
   box-shadow:
     inset 0 0 0 1px rgba(255, 255, 255, 0.72),
-    0 0 0 3px rgba(79, 121, 196, 0.2);
+    0 0 0 3px rgba(251, 146, 60, 0.22);
 }
 
 .sirore-entry-main {
@@ -691,8 +705,8 @@ button:active {
   font-size: 0.56rem;
   font-weight: 700;
   letter-spacing: 0.03em;
-  background: rgba(120, 143, 184, 0.16);
-  color: rgba(35, 55, 90, 0.84);
+  background: var(--promo-badge-bg);
+  color: var(--promo-badge-text);
 }
 
 .sirore-entry-title {
@@ -700,14 +714,14 @@ button:active {
   font-size: 0.72rem;
   font-weight: 700;
   line-height: 1.25;
-  color: #1d2f4d;
+  color: var(--promo-card-title);
 }
 
 .sirore-entry-subtitle {
   margin: 0;
   font-size: 0.62rem;
   line-height: 1.28;
-  color: #607495;
+  color: var(--promo-card-subtitle);
 }
 
 .country-header-rail {
