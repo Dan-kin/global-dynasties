@@ -657,6 +657,9 @@ const EXTRA_UI = {
     "chart.toastHidden": "已隐藏 {country} 列。可在左侧国家列表或顶部标题再次点击恢复。",
     "chart.toastShown": "已恢复 {country} 列。",
     "chart.toastLocked": "至少保留 1 列，当前无法继续隐藏。",
+    "entry.sirore.title": "SiRoRe 2026 报名",
+    "entry.sirore.subtitle": "巴黎博览会｜参与者表单",
+    "entry.sirore.aria": "打开 SiRoRe 2026 巴黎博览会参与者报名表（新标签页）",
     "footer.disclaimer": "本网站用于教育与研究展示，不构成官方历史定论。",
     "footer.attribution": "署名与引用",
     "footer.sources": "数据来源",
@@ -688,6 +691,9 @@ const EXTRA_UI = {
     "chart.toastHidden": "{country} column hidden. Click again in header or left country chips to restore.",
     "chart.toastShown": "{country} column restored.",
     "chart.toastLocked": "At least one column must remain visible.",
+    "entry.sirore.title": "SiRoRe 2026 Registration",
+    "entry.sirore.subtitle": "Foire de Paris | Participation Form",
+    "entry.sirore.aria": "Open the SiRoRe 2026 Foire de Paris participant registration form (new tab)",
     "footer.disclaimer": "This website is for educational and research visualization only.",
     "footer.attribution": "Attribution",
     "footer.sources": "Data Sources",
@@ -719,6 +725,9 @@ const EXTRA_UI = {
     "chart.toastHidden": "Colonne {country} masquée. Cliquez encore dans l'en-tête ou à gauche pour la réafficher.",
     "chart.toastShown": "Colonne {country} réaffichée.",
     "chart.toastLocked": "Au moins une colonne doit rester visible.",
+    "entry.sirore.title": "Inscription SiRoRe 2026",
+    "entry.sirore.subtitle": "Foire de Paris | Formulaire de participation",
+    "entry.sirore.aria": "Ouvrir le formulaire d'inscription des participants SiRoRe 2026 Foire de Paris (nouvel onglet)",
     "footer.disclaimer": "Ce site est destiné à la visualisation éducative et de recherche.",
     "footer.attribution": "Attribution",
     "footer.sources": "Sources de données",
@@ -726,6 +735,10 @@ const EXTRA_UI = {
     "footer.terms": "Conditions",
     "footer.copyright": "© 2026 ACMFC_LAB / Dankin · Global Dynasties · www.acmfc.fr"
   }
+};
+
+const EXTERNAL_LINKS = {
+  SIRORE_PARTICIPANT_FORM: "https://forms.gle/8HdZ8nGarJXewsNV6"
 };
 
 const DEFAULT_COUNTRY_ORDER = ["CN", "JP", "IN", "IR", "TR", "RU", "DE", "FR", "EG", "MX", "PE"];
@@ -768,6 +781,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function init() {
   cacheElements();
+  applyExternalLinks();
   hydrateStateFromQuery();
   syncInputsFromState();
   bindEvents();
@@ -801,6 +815,7 @@ function cacheElements() {
   els.langButtons = Array.from(document.querySelectorAll(".lang-switch button"));
   els.timelineSection = document.getElementById("timelineSection");
   els.countryHeaderWrap = document.getElementById("countryHeaderWrap");
+  els.siroreEntryLink = document.getElementById("siroreEntryLink");
   els.countryHeaderRail = document.getElementById("countryHeaderRail");
   els.countryHeaderTrack = document.getElementById("countryHeaderTrack");
   els.timelineViewport = document.getElementById("timelineViewport");
@@ -827,6 +842,12 @@ function cacheElements() {
   els.detailNote = document.getElementById("detailNote");
   els.detailConcurrent = document.getElementById("detailConcurrent");
   els.detailSources = document.getElementById("detailSources");
+}
+
+function applyExternalLinks() {
+  if (els.siroreEntryLink) {
+    els.siroreEntryLink.href = EXTERNAL_LINKS.SIRORE_PARTICIPANT_FORM;
+  }
 }
 
 function hydrateStateFromQuery() {
@@ -1171,6 +1192,10 @@ function applyI18n() {
 
   document.querySelectorAll("[data-i18n-placeholder]").forEach((node) => {
     node.placeholder = txt(node.dataset.i18nPlaceholder);
+  });
+
+  document.querySelectorAll("[data-i18n-aria-label]").forEach((node) => {
+    node.setAttribute("aria-label", txt(node.dataset.i18nAriaLabel));
   });
 
   els.closeDrawer.setAttribute("aria-label", txt("detail.close"));

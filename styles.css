@@ -643,10 +643,71 @@ button:active {
 }
 
 .country-header-spacer {
+  min-height: 52px;
+  display: grid;
+  align-content: center;
+  gap: 4px;
+  padding: 7px 8px;
   border: 1px solid #d7e2f4;
   border-radius: 14px;
   background: linear-gradient(180deg, #f8fbff, #f1f6ff);
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.65);
+  text-decoration: none;
+  color: inherit;
+}
+
+.sirore-entry-card {
+  transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease;
+}
+
+.sirore-entry-card:hover {
+  transform: translateY(-1px);
+  border-color: #bccce8;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.72),
+    0 8px 16px rgba(20, 43, 86, 0.08);
+}
+
+.sirore-entry-card:focus-visible {
+  outline: 2px solid #4f79c4;
+  outline-offset: 2px;
+  border-color: #93b1e4;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.72),
+    0 0 0 3px rgba(79, 121, 196, 0.2);
+}
+
+.sirore-entry-main {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.sirore-entry-badge {
+  flex: 0 0 auto;
+  border-radius: 999px;
+  padding: 1px 6px;
+  font-size: 0.56rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  background: rgba(120, 143, 184, 0.16);
+  color: rgba(35, 55, 90, 0.84);
+}
+
+.sirore-entry-title {
+  margin: 0;
+  font-size: 0.72rem;
+  font-weight: 700;
+  line-height: 1.25;
+  color: #1d2f4d;
+}
+
+.sirore-entry-subtitle {
+  margin: 0;
+  font-size: 0.62rem;
+  line-height: 1.28;
+  color: #607495;
 }
 
 .country-header-rail {
@@ -1439,6 +1500,10 @@ button:active {
   }
 
   .country-head-item {
+    min-height: 58px;
+  }
+
+  .country-header-spacer {
     min-height: 58px;
   }
 
