@@ -1474,6 +1474,18 @@ function bindTimelineViewportDrag() {
   let startX = 0;
   let startLeft = 0;
   let moved = false;
+  const DRAG_THRESHOLD_PX = 10;
+
+  const isInteractiveTarget = (target) => {
+    if (!target || typeof target.closest !== "function") {
+      return false;
+    }
+    return Boolean(
+      target.closest(
+        "button, a, input, select, textarea, label, [data-polity-id], [data-country-head], [data-country-chip]"
+      )
+    );
+  };
 
   const endDrag = (event) => {
     if (pointerId === null) {
@@ -1495,6 +1507,9 @@ function bindTimelineViewportDrag() {
 
   els.timelineViewport.addEventListener("pointerdown", (event) => {
     if (event.pointerType !== "mouse" || event.button !== 0) {
+      return;
+    }
+    if (isInteractiveTarget(event.target)) {
       return;
     }
 
@@ -1520,7 +1535,7 @@ function bindTimelineViewportDrag() {
     }
 
     const delta = event.clientX - startX;
-    if (Math.abs(delta) > 4) {
+    if (Math.abs(delta) > DRAG_THRESHOLD_PX) {
       moved = true;
     }
     els.timelineViewport.scrollLeft = startLeft - delta;
