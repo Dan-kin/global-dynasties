@@ -20,6 +20,7 @@
   --promo-card-focus: #fb923c;
   --promo-badge-bg: #ffe4c7;
   --promo-badge-text: #9a3412;
+  --brand-logo-url: url("logo.svg?v=20260225a");
   --top-h: 74px;
   --panel-w: 332px;
   --era-label-w: 130px;
@@ -126,6 +127,7 @@ body {
   height: 34px;
   border-radius: 11px;
   background:
+    var(--brand-logo-url) center / cover no-repeat,
     conic-gradient(from 135deg at 50% 50%, rgba(37, 99, 235, 0.95), rgba(15, 118, 110, 0.86), rgba(29, 78, 216, 0.95));
   box-shadow:
     inset 0 0 0 1px rgba(255, 255, 255, 0.56),
